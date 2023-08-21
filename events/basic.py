@@ -15,21 +15,21 @@ def about_us_event(event):
         }
     ]
 
-    text_message = TextSendMessage(text='''$ Master SPA $
-專業中醫推拿出身，融合東西方按摩手法
+    text_message = TextSendMessage(text=''' 始午健康餐盒 
+原型食物-提供您每日健康的一餐
 
--嚴格把關：所有用品皆有消毒或採一次用品。
+營養標示-計算健康的每一步
 
--設備齊全：夏天有冷氣，冬天有電毯和暖氣。
+拒絕精緻-紫米、糙米、紅藜
 
--獨立空間：專業乾淨高品質獨立按摩空間。''', emojis=emoji)
+保溫用膳-提供保溫裝備直到您用餐。''', emojis=emoji)
 
     sticker_message = StickerSendMessage(
-        package_id='8522',
-        sticker_id='16581271'
+        package_id='6362',
+        sticker_id='11087932'
     )
 
-    about_us_img = 'https://i.imgur.com/L5LdMVy.png'
+    about_us_img = 'https://i.imgur.com/eoIyU35.jpg'
 
     image_message = ImageSendMessage(
         original_content_url=about_us_img,
@@ -42,12 +42,13 @@ def about_us_event(event):
     
 def location_event(event):
     location_message = LocationSendMessage(
-        title='Master SPA',
-        address='110台北市信義區信義路五段7號',
-        latitude=25.0333695,
-        longitude=121.5638839
+        title='始午',
+        address='802高雄市苓雅區仁德街56號之1號',
+        latitude=22.6161720233321,
+        longitude=120.30221104716944
     )
 
     line_bot_api.reply_message(
         event.reply_token,
         location_message)
+    
