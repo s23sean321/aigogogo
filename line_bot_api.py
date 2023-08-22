@@ -5,7 +5,8 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FollowEvent, UnfollowEvent, StickerSendMessage, ImageSendMessage, LocationSendMessage
+    MessageEvent, TextMessage, TextSendMessage, FollowEvent, UnfollowEvent, StickerSendMessage, ImageSendMessage, LocationSendMessage,
+    FlexSendMessage
 )
 # Channel access token
 line_bot_api = LineBotApi('gX8T/+93KFTGbRQiZeveSsf/czvQTibLG1Jk0tCGwC0LpzxqGKzeOdEgMzO1b0vkgnT9/i9PE9kgw18gRaPX0WbMzwsiP/ZKGyrkhs5alXgeJZUbHnkdBzekZSl+c535OR/x2LEBuJNuXVAZe5x2BwdB04t89/1O/w1cDnyilFU=')
