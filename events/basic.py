@@ -15,14 +15,14 @@ def about_us_event(event):
         }
     ]
 
-    text_message = TextSendMessage(text='''$ Master SPA $
-專業中醫推拿出身，融合東西方按摩手法
+    text_message = TextSendMessage(text='''$ 始午健康餐盒 $
+原型食物-提供您每日健康的一餐
 
--嚴格把關：所有用品皆有消毒或採一次用品。
+營養標示-計算健康的每一步
 
--設備齊全：夏天有冷氣，冬天有電毯和暖氣。
+拒絕精緻-紫米、糙米、紅藜
 
--獨立空間：專業乾淨高品質獨立按摩空間。''', emojis=emoji)
+保溫用膳-提供保溫裝備直到您用餐。''', emojis=emoji)
 
     sticker_message = StickerSendMessage(
         package_id='8522',
