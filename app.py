@@ -37,3 +37,13 @@ def handle_message(event):
         
 if __name__ == "__main__":
     app.run()
+
+
+@handler.add(FollowEvent)
+def handle_follow(event):
+    welcome_msg="""讓始午成為你健康的一餐"""
+
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=welcome_msg)
+    )
