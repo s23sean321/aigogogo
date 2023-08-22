@@ -3,7 +3,7 @@ from urllib.parse import parse_qsl
 
 
 
-srvices = {
+services = {
     1:{
         'category':'A餐-雞肉套餐',
         'img_url':'https://i.imgur.com/6Jrc4NX.jpg',
