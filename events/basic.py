@@ -5,13 +5,13 @@ def about_us_event(event):
     emoji = [
         {
             "index": 0,
-            "productId": "5ac21184040ab15980c9b43a",
-            "emojiId": "225"
+            "productId": "5ac2211e031a6752fb806d61",
+            "emojiId": "189"
         },
         {
             "index": 9,
-            "productId": "5ac21184040ab15980c9b43a",
-            "emojiId": "225"
+            "productId": "5ac2211e031a6752fb806d61",
+            "emojiId": "085"
         }
     ]
 
@@ -22,14 +22,16 @@ def about_us_event(event):
 
 拒絕精緻-紫米、糙米、紅藜
 
-保溫用膳-提供保溫裝備直到您用餐。''', emojis=emoji)
+保溫用膳-提供保溫裝備直到您用餐
+
+  (每日供膳菜單如下圖)。''', emojis=emoji)
 
     sticker_message = StickerSendMessage(
         package_id='6362',
         sticker_id='11087932'
     )
 
-    about_us_img = 'https://i.imgur.com/eoIyU35.jpg'
+    about_us_img = 'https://i.imgur.com/w9FlofV.jpg'
 
     image_message = ImageSendMessage(
         original_content_url=about_us_img,
