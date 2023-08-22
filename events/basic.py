@@ -44,10 +44,10 @@ def about_us_event(event):
     
 def location_event(event):
     location_message = LocationSendMessage(
-        title='Master SPA',
-        address='110台北市信義區信義路五段7號',
-        latitude=25.0333695,
-        longitude=121.5638839
+        title='始午',
+        address='802高雄市苓雅區仁德街56號之1號',
+        latitude=22.6161720233321,
+        longitude=120.30221104716944
     )
 
     line_bot_api.reply_message(
