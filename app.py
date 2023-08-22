@@ -38,6 +38,15 @@ def handle_message(event):
         service_category_event(event)
 
 
+@handler.add(PostbackAction)
+def handle_postback(event):
+    data = dict(parse_qsl(event.postback.data))
+    if data.get('action')=='service':
+        service_event(event)
+
+
+
+
 @handler.add(FollowEvent)
 def handle_follow(event):
     welcome_msg="""讓始午成為你健康的一餐
