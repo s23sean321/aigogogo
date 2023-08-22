@@ -15,7 +15,7 @@ def about_us_event(event):
         }
     ]
 
-    text_message = TextSendMessage(text='''$ Master SPA $
+    text_message = TextSendMessage(text='''$ 始午健康餐盒 $
 原型食物-提供您每日健康的一餐
 
 營養標示-計算健康的每一步
