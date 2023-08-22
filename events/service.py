@@ -49,7 +49,7 @@ def service_category_event(event):
         template = ImageCarouselTemplate(
             columns=[
                 ImageCarouselColumn(
-                    image_url='',
+                    image_url='https://i.imgur.com/6Jrc4NX.jpg',
                     action=PostbackAction(
                         lable='A餐-雞肉套餐',
                         dispaly_text='想訂購雞肉套餐',
@@ -57,7 +57,7 @@ def service_category_event(event):
                     )
                 ),
                 ImageCarouselColumn(
-                    image_url='',
+                    image_url='https://i.imgur.com/OO3EM1P.jpg',
                     action=PostbackAction(
                         lable='B餐-豬肉套餐',
                         dispaly_text='想訂購豬肉套餐',
@@ -65,7 +65,7 @@ def service_category_event(event):
                     )
                 ),
                 ImageCarouselColumn(
-                    image_url='',
+                    image_url='https://i.imgur.com/zo59nEc.jpg',
                     action=PostbackAction(
                         lable='F餐-蔬菜套餐',
                         dispaly_text='想訂購蔬菜套餐',
@@ -73,7 +73,7 @@ def service_category_event(event):
                     )
                 ),
                 ImageCarouselColumn(
-                    image_url='',
+                    image_url='https://i.imgur.com/LYZRbcR.jpg',
                     action=PostbackAction(
                         lable='G餐-特別套餐',
                         dispaly_text='想訂購特別套餐',
