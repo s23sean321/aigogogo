@@ -1,5 +1,5 @@
 from flask import Flask, request, abort
-
+from events.service import *
 from events.basic import *
 from line_bot_api import *
 
@@ -33,6 +33,10 @@ def handle_message(event):
 
     elif message_text == '@營業據點':
         location_event(event)
+
+    elif message_text == '@預約服務':
+        service_category_event(event)
+
 
 @handler.add(FollowEvent)
 def handle_follow(event):
