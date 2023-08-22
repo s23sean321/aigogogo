@@ -36,7 +36,9 @@ def handle_message(event):
 
 @handler.add(FollowEvent)
 def handle_follow(event):
-    welcome_msg="""讓始午成為你健康的一餐"""
+    welcome_msg="""讓始午成為你健康的一餐
+    
+-選單>關於我們:可看到每日菜單"""
 
     line_bot_api.reply_message(
         event.reply_token,
