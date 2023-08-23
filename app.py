@@ -11,7 +11,7 @@ import os
 app = Flask(__name__)
 
 app.config.from_object(os.environ.get('APP_SETTINGS','config.DevConfig'))
-app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://s23sean321:VvsjgLBxas5IBljL5iHwfRE2BHnsP7Vr@dpg-cjig7t0cfp5c73fmnhf0-a.singapore-postgres.render.com/aigosql'
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://s23sean321:pdKVrYpBstM7Eu7NkMyCBhKntRaPlgwH@dpg-cjiu1or37aks73cr6cd0-a.singapore-postgres.render.com/aigogogosql'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] =False
 db.app=app
 db.init_app(app)
@@ -71,8 +71,17 @@ def handle_message(event):
     elif message_text == '@預約服務':
         service_category_event(event)
 
+    elif message_text.startswith('*'):
+        if event.source.user_id not in ['']:
+            return
+        if message_text in ['*data','*d']:
+            list_reservation_event(event)
+        elif message_text in ['*group','g']:
+            create_audience_group(event)
 
-@handler.add(PostbackAction)
+
+
+@handler.add(PostbackEvent)
 def handle_postback(event):
     data = dict(parse_qsl(event.postback.data))
     if data.get('action')=='service':

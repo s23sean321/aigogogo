@@ -10,7 +10,7 @@ def list_reservation_event(event):
                                             ).order_by(Reservation.booking_datetime.asc()).all()
     reservation_data_text = '## 預約名單: ## \n\n'
     for reservation in reservations:
-        reservation_data_text +=f'''預約日期:{reservation.booking_dateyime}
+        reservation_data_text += f'''預約日期:{reservation.booking_dateyime}
 預約服務: {reservation.booking_service}
 姓名: {reservation.user.display_name}\n'''
         
