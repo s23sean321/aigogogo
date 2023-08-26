@@ -1,11 +1,11 @@
-from flask import Flask, request, abort
-
+from flask import Flask,request,abort
 from events.service import *
-from events.basic import *
 from line_bot_api import *
+from events.basic import *
+from events.admin import *
+from extensions import db, migrate
+from models.user import User    
 
-from extensions import db,migrate
-from models.user import User
 import os
 
 app = Flask(__name__)
@@ -76,8 +76,7 @@ def handle_message(event):
             return
         if message_text in ['*data','*d']:
             list_reservation_event(event)
-        elif message_text in ['*group','g']:
-            create_audience_group(event)
+        
 
 
 
