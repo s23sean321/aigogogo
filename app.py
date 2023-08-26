@@ -72,7 +72,7 @@ def handle_message(event):
         service_category_event(event)
 
     elif message_text.startswith('*'):
-        if event.source.user_id not in ['']:
+        if event.source.user_id not in ['U23237fa985e2d6cdc28a38cea1d592e4']:
             return
         if message_text in ['*data','*d']:
             list_reservation_event(event)
