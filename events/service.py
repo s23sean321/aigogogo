@@ -198,8 +198,8 @@ def service_event(event):
     line_bot_api.reply_message(
         event.reply_token,
         [flex_message])
-
-
+#預約日期的功能
+#設定完這個function後就要到app.py中的handle_postback去新增判斷式
 def service_select_date_event(event):
 
     data = dict(parse_qsl(event.postback.data))
@@ -237,8 +237,7 @@ def service_select_date_event(event):
         event.reply_token,
         [text_message])
 
-
-
+#選擇時間的功能
 def service_select_time_event(event):
 
     data = dict(parse_qsl(event.postback.data))
@@ -258,9 +257,10 @@ def service_select_time_event(event):
     line_bot_api.reply_message(
         event.reply_token,
         [text_message])
-    
 
 
+#confirm_template是用來確認,它包含了訊息和底下有兩個按鈕
+#PostbackAction可以帶data的資料,MessageAction則是用戶按下去時會直接傳訊息到聊天室
 def service_confirm_event(event):
 
     data = dict(parse_qsl(event.postback.data))
@@ -287,7 +287,9 @@ def service_confirm_event(event):
         event.reply_token,
         [confirm_template_message])
 
-
+#取消用的是ButtonsTemplat,有訊息的標題和訊息的內容
+#action中可以設定一到四個按鈕
+#這個function是判斷用戶是否預約過,利用Reservation.query.filter搜尋資料,條件是user_id == user.id
 def is_booked(event, user):
     reservation = Reservation.query.filter(Reservation.user_id == user.id,
                                            Reservation.is_canceled.is_(False),#代表沒有被取消
@@ -361,3 +363,4 @@ def service_cancel_event(event):
         line_bot_api.reply_message(
             event.reply_token,
             [TextSendMessage(text='您目前沒有預約喔')])
+
