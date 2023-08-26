@@ -268,3 +268,104 @@ def service_event(event):
     line_bot_api.reply_message(
         event.reply_token,
         [flex_message])
+    
+
+
+def service_select_date_event(event):
+    data = dict(parse_qsl(event.postback.data))
+    weekday_string={
+        0:'一',
+        1:'二',
+        2:'三',
+        3:'四',
+        4:'五',
+        5:'六',
+        6:'日',
+    }
+
+    business_day=[1,2,3,4,5,6]
+
+    quick_reply_buttons=[]
+    today=datetime.timedelta.today().date()
+    for x in range(1,11):
+        day = today +datetime.timedelta(days=x)
+        if day.weekday() in business_day:
+            quick_reply_buttons=QuickReplyButton(
+                action=PostbackAction(label=f'{day}({weekday_string[day.weekday()]})',
+                                      text=f'我要預約{day}({weekday_string[day.weekday()]})這天',
+                                      data=f'action=select_time&service_id={data["service_id"]}&date={day}'))
+            quick_reply_buttons.append(quick_reply_buttons)
+
+    text_message = TextSendMessage(text='請問要預約哪一天?',
+                                   quick_reply=QuickReply(items=quick_reply_buttons))
+    
+    line_bot_api.reply_message(
+        event.reply_token,
+        [text_message])
+
+
+
+
+def service_select_time_event(event):
+    data = dict(parse_qsl(event.postback.data))
+    available_time = ['11:00','14:00','17:00','20:00']
+    quick_reply_buttons=[]
+    for time in available_time:
+        quick_reply_buttons = QuickReplyButton(action = PostbackAction(label=time,
+                                                                       text=f'{time}這個時段',data=f'action=confirm&service_id={data["service_id"]}&date={data["date"]}&time={time}'))
+        quick_reply_buttons.append(quick_reply_buttons)
+
+    text_message = TextSendMessage(text='請問要預約哪個時段?',
+                                   quick_reply=QuickReply(items=quick_reply_buttons))
+    line_bot_api.reply_message(
+        event.reply_token,
+        [text_message])
+    
+
+
+def service_confirm_event(event):
+    data = dict(parse_qsl(event.postback.data))
+    booking_service = services[int(data['service_id'])]
+    confirm_template_message=TemplateSendMessage(
+        alt_text='請確認項目',
+        template=ConfirmTemplate(
+            text=f'您即將預約\n\n{booking_service["title"]}{booking_service["duration"]}\n預約時段:{data["date"]}{data["time"]}\n\n'
+            actions=[
+                PostbackAction(
+                    label='確定',
+                    display_text='請確認問題',
+                    data=f'actions=confirmed&service_id={data["service_id"]}&date={data["date"]}&time={data["time"]}'
+                ),
+                MessageEvent(
+                    label='重新預約',
+                    text='我想重新預約'
+                )
+            ]
+        )
+    )
+    line_bot_api.reply_message(
+        event.reply_token,
+        [confirm_template_message])
+    
+
+def service_confirmed_event(event):
+    data = dict(parse_qsl(event.postback.data))
+    booking_service = services[int(data['service_id'])]
+    booking_datetime= datetime.datetime.strptime(f'{date["date"]}{data["time"]}','%Y-%m-%d %H:%M')
+
+    user = User.query.filter(User.line_id == event.source.user_id).first()
+    if is_booked(event,user):
+        return
+    
+    reservation = Reservation(
+        user_id=user.id,
+        booking_service_category=f'{booking_service["category"]}',
+        booking_service=f'{booking_service["title"]}{booking_service["duration"]}',
+        booking_datetime=booking_datetime)
+    
+    db.session.add(reservation)
+    db.session.commit()
+    line_bot_api.reply_message(
+        event.reply_token,
+        [TextSendMessage(text='沒問題! 感謝您的預約,我已經幫您預約成功摟')])
+    
