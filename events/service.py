@@ -96,111 +96,108 @@ def service_category_event(event):
 
 
 def service_event(event):
-    #底下三個要等上面的service建立後才寫，主要是要跑service的服務
+    #底下三個要等上面的service建立後才寫,主要是要跑service的服務
     #data = dict(parse_qsl(event.postback.data))
-    #bubbles=[]
+    #bubbles = []
     #for service_id in services:
-
     data = dict(parse_qsl(event.postback.data))
 
     bubbles = []
 
     for service_id in services:
-            if services[service_id]['category'] == data['category']:
-                service = services[service_id]
-                bubble = {
-                "type": "bubble",
-                "hero": {
-                    "type": "image",
-                    "size": "full",
-                    "aspectRatio": "20:13",
-                    "aspectMode": "cover",
-                    "url": service['img_url']
-                },
-                "body": {
+        if services[service_id]['category'] == data['category']:
+            service = services[service_id]
+            bubble = {
+              "type": "bubble",
+              "hero": {
+                "type": "image",
+                "size": "full",
+                "aspectRatio": "20:13",
+                "aspectMode": "cover",
+                "url": service['img_url']
+              },
+              "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": service['title'],
+                    "wrap": True,
+                    "weight": "bold",
+                    "size": "xl"
+                  },
+                  {
+                    "type": "text",
+                    "text": service['duration'],
+                    "size": "md",
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "text": service['description'],
+                    "margin": "lg",
+                    "wrap": True
+                  },
+                  {
                     "type": "box",
-                    "layout": "vertical",
-                    "spacing": "sm",
+                    "layout": "baseline",
                     "contents": [
-                    {
+                      {
                         "type": "text",
-                        "text": service['title'],
+                        "text": f"NT$ {service['price']}",
                         "wrap": True,
                         "weight": "bold",
-                        "size": "xl"
+                        "size": "xl",
+                        "flex": 0
+                      }
+                    ],
+                    "margin": "xl"
+                  }
+                ]
+              },
+              "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "button",
+                    "style": "primary",
+                    "action": {
+                      "type": "postback",
+                      "label": "預約",
+                      "data": f"action=select_date&service_id={service_id}",
+                      "displayText": f"我想預約【{service['title']} {service['duration']}】"
                     },
-                    {
-                        "type": "text",
-                        "text": service['duration'],
-                        "size": "md",
-                        "weight": "bold"
-                    },
-                    {
-                        "type": "text",
-                        "text": service['description'],
-                        "margin": "lg",
-                        "wrap": True
-                    },
-                    {
-                        "type": "box",
-                        "layout": "baseline",
-                        "contents": [
-                        {
-                            "type": "text",
-                            "text": f"NT$ {service['price']}",
-                            "wrap": True,
-                            "weight": "bold",
-                            "size": "xl",
-                            "flex": 0
-                        }
-                        ],
-                        "margin": "xl"
+                    "color": "#b28530"
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "uri",
+                      "label": "了解詳情",
+                      "uri": service['post_url']
                     }
-                    ]
-                },
-                "footer": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "button",
-                        "style": "primary",
-                        "action": {
-                        "type": "postback",
-                        "label": "預約",
-                        "data": f"action=select_date&service_id={service_id}",
-                        "displayText": f"我想預約【{service['title']} {service['duration']}】"
-                        },
-                        "color": "#b28530"
-                    },
-                    {
-                        "type": "button",
-                        "action": {
-                        "type": "uri",
-                        "label": "了解詳情",
-                        "uri": service['post_url']
-                        }
-                    }
-                    ]
-                }
-                }
+                  }
+                ]
+              }
+            }
 
-                bubbles.append(bubble)
+            bubbles.append(bubble)
 
     flex_message = FlexSendMessage(
-         alt_text = '請選擇預約項目',
-         contents={
-            "type":"carousel",
-            "contents":bubbles
+        alt_text='請選擇預約項目',
+        contents={
+          "type": "carousel",
+          "contents": bubbles
         }
     )
 
     line_bot_api.reply_message(
         event.reply_token,
-        [flex_message]
-    )
-    
+        [flex_message])
 
 
 def service_select_date_event(event):
